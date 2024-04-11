@@ -1,0 +1,3 @@
+-- AlterTable
+ALTER TABLE "Teams" ALTER COLUMN "matches1Id" DROP NOT NULL,
+ALTER COLUMN "matches2Id" DROP NOT NULL;

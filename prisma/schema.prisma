@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tournaments {
+  id           Int           @id @default(autoincrement())
+  name         String
+  matches      Matches[] 
+  Date         DateTime
+  type         String
+}
+
+model Matches {
+  id           Int           @id @default(autoincrement())
+  tournament   Tournaments   @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
+  tournamentId Int
+  // team1        Teams         @relation("team1", fields: [team1Id], references: [id])
+  // team1Id      Int
+  // team2        Teams         @relation("team2", fields: [team2Id], references: [id])
+  // team2Id      Int
+  // winner       Teams         @relation("winner", fields: [winnerId], references: [id])
+  // winnerId     Int
+  team1        String
+  team2        String
+  Date         DateTime 
+  winner       String?
+}
+
+// model Teams {
+//   id           Int           @id @default(autoincrement())
+//   name         String
+//   players      Players[]
+//   tournament   Tournaments?   @relation(fields: [tournamentId], references: [id])
+//   tournamentId Int?
+//   team1        Matches[] @relation("team1")
+//   matches1Id   Int?  @unique
+//   team2        Matches[] @relation("team2")
+//   matches2Id   Int?  @unique
+//   win          Matches[] @relation("winner")
+// }
+
+// model Players {
+//   id           Int           @id @default(autoincrement())
+//   name         String
+//   team         Teams         @relation(fields: [teamId], references: [id])
+//   teamId       Int
+// }
