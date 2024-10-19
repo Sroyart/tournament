@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { postMatch } from "@/lib/actions/queries";
-import { useRouter } from "next/navigation";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { postMatch } from "@/lib/actions/queries"
+import { useRouter } from "next/navigation"
+import React from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
 
 type Match = {
   team1: string;
@@ -12,20 +12,19 @@ type Match = {
 };
 
 const MatchForm: React.FC<{ tournamentId: number }> = ({ tournamentId }) => {
-  const router = useRouter();
-
-  const { register, handleSubmit } = useForm<Match>();
-
+  const router = useRouter()
+  const { register, handleSubmit } = useForm<Match>()
   const onSubmit: SubmitHandler<Match> = (data) => {
     postMatch({
       ...data,
-      tournamentId: tournamentId,
+      tournamentId,
       Date: new Date(data.Date),
     }).then(() => {
-      router.refresh();
-    });
-  };
-  return (
+      router.refresh()
+    })
+  }
+  
+return (
     <form className="max-w-sm mx-auto" onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-5"></div>
       <div className="mb-5">
@@ -72,7 +71,7 @@ const MatchForm: React.FC<{ tournamentId: number }> = ({ tournamentId }) => {
         Valider
       </button>
     </form>
-  );
-};
+  )
+}
 
-export default MatchForm;
+export default MatchForm

@@ -1,7 +1,7 @@
-import { allTournaments } from "@/lib/script";
+import { allTournaments } from "@/lib/script"
 
 export default async function Home() {
-  const tournaments = await allTournaments();
+  const tournaments = await allTournaments()
 
   return (
     <main className="flex min-h-screen flex-col items-center p-24">
@@ -31,5 +31,5 @@ export default async function Home() {
         </div>
       ))}
     </main>
-  );
+  )
 }

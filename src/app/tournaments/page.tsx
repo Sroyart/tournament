@@ -1,14 +1,14 @@
-import DeleteMatch from "@/app/components/DeleteMatch";
-import DeleteTournament from "@/app/components/DeleteTournament";
-import MatchForm from "@/app/components/forms/MatchForm";
-import TournamentForm from "@/app/components/forms/TournamentForm";
-import More from "@/app/components/More";
-import Winner from "@/app/components/Winner";
-import { allTournaments } from "@/lib/script";
-import React from "react";
+import DeleteMatch from "@/app/components/DeleteMatch"
+import DeleteTournament from "@/app/components/DeleteTournament"
+import MatchForm from "@/app/components/forms/MatchForm"
+import TournamentForm from "@/app/components/forms/TournamentForm"
+import More from "@/app/components/More"
+import Winner from "@/app/components/Winner"
+import { allTournaments } from "@/lib/script"
+import React from "react"
 
 const page = async () => {
-  const tournaments: any = await allTournaments();
+  const tournaments: any = await allTournaments()
 
   return (
     <>
@@ -49,7 +49,7 @@ const page = async () => {
         ))}
       </div>
     </>
-  );
-};
+  )
+}
 
-export default page;
+export default page

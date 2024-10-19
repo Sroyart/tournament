@@ -1,15 +1,17 @@
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client"
 
-const prisma = new PrismaClient();
+const prisma = new PrismaClient()
 
 export const allTournaments = async () => {
   const tournaments = await prisma.tournaments.findMany({
     include: {
       matches: true,
     },
-  });
-  return tournaments;
-};
+  })
+
+  
+return tournaments
+}
 
 export const newTournament = async (tournamentDto: any) => {
   const tournament = await prisma.tournaments.create({
@@ -17,38 +19,38 @@ export const newTournament = async (tournamentDto: any) => {
       ...tournamentDto,
       Date: new Date(tournamentDto.Date),
     },
-  });
+  })
 
-  return tournament;
-};
+  return tournament
+}
 
 export const removeTournament = async (id: number) => {
   const tournament = await prisma.tournaments.delete({
     where: {
       id,
     },
-  });
+  })
 
-  return tournament;
-};
+  return tournament
+}
 
 export const newMatch = async (matchDto: any) => {
   const match = await prisma.matches.create({
     data: matchDto,
-  });
+  })
 
-  return match;
-};
+  return match
+}
 
 export const removeMatch = async (id: number) => {
   const match = await prisma.matches.delete({
     where: {
       id,
     },
-  });
+  })
 
-  return match;
-};
+  return match
+}
 
 export const changeWinner = async (winnerDto: any) => {
   const winner = await prisma.matches.update({
@@ -56,7 +58,7 @@ export const changeWinner = async (winnerDto: any) => {
     where: {
       id: winnerDto.id,
     },
-  });
+  })
 
-  return winner;
-};
+  return winner
+}
