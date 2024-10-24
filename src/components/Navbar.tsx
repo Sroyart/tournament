@@ -2,8 +2,8 @@ import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 import icon from "/public/icons.png"
-import Logo from "@/app/components/Logo"
-import AuthButtons from "@/app/components/AuthButtons"
+import Logo from "@/components/Logo"
+import AuthButtons from "@/components/AuthButtons"
 
 const navLinks = [
   { title: "Acceuil", path: "/" },
