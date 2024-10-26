@@ -1,21 +1,37 @@
 "use server"
 
-import type { RegisterType } from "@/types/auth"
 import { z } from "zod"
 
-const registerSchema = z.object({
-  email: z.string().email({ message: "Please enter email address" }),
-  password: z.string().min(8, {
-    message: "At least 8 characters long",
-  }),
-})
+export const register = async (
+  state: { email: string; password: string } | null,
+  formData: FormData,
+) => {
+  const registerSchema = z.object({
+    email: z.string().email({ message: "Please enter email address" }),
+    password: z.string().min(8, {
+      message: "At least 8 characters long",
+    }),
+  })
+  const email = formData.get("email") as string
+  const password = formData.get("password") as string
+  const result = registerSchema.safeParse({ email, password })
+  const errorsArrayToObject = (errors: z.ZodIssue[]) =>
+    errors.reduce<Record<string, string[]>>((acc, error) => {
+      const [key]: (number | string)[] = error.path
 
-export const register: (credential: RegisterType) => Promise<{
-  email: string
-  password: string
-}> = async (previousState: string | undefined | null, formData: FormData) => {
-  const email = formData.get("email")
-  const password = formData.get("password")
+      if (!key) {
+        throw new Error("Key is missing")
+      }
 
-  return { email, password }
+      acc[key] ??= []
+      acc[key].push(error.message)
+
+      return acc
+    }, {})
+
+  if (!result.success) {
+    return { email, password, errors: errorsArrayToObject(result.error.errors) }
+  }
+
+  return { email, password, errors: null }
 }

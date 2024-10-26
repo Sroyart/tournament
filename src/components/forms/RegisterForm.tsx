@@ -1,17 +1,13 @@
 "use client"
 
 import { register } from "@/lib/actions/auth/signUp"
-import React from "react"
-import { useFormState } from "react-dom"
+import React, { useActionState } from "react"
 
 const RegisterForm = () => {
-  const [state, action] = useFormState(register, {
-    email: "",
-    password: "",
-  })
+  const [state, formAction] = useActionState(register, null)
 
   return (
-    <form action={action}>
+    <form action={formAction}>
       <label>
         Email
         <input name="email" type="email" />
