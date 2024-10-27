@@ -1,5 +1,7 @@
 "use server"
 
+import prisma from "@/lib/db"
+import { saltAndHashPassword } from "@/utils/password"
 import { z } from "zod"
 
 export const register = async (
@@ -32,6 +34,25 @@ export const register = async (
   if (!result.success) {
     return { email, password, errors: errorsArrayToObject(result.error.errors) }
   }
+
+  const isEmailTaken = await prisma.user.findUnique({
+    where: {
+      email,
+    },
+  })
+
+  if (isEmailTaken) {
+    return { email, password, errors: { email: ["Email is already taken"] } }
+  }
+
+  const passwordHashed = await saltAndHashPassword(password)
+
+  await prisma.user.create({
+    data: {
+      email,
+      password: passwordHashed,
+    },
+  })
 
   return { email, password, errors: null }
 }

@@ -11,10 +11,24 @@ const RegisterForm = () => {
       <label>
         Email
         <input name="email" type="email" />
+        {state?.errors?.email && (
+          <div role="alert">
+            {state.errors.email.map((error) => (
+              <p key={error}>{error}</p>
+            ))}
+          </div>
+        )}
       </label>
       <label>
         Password
         <input name="password" type="password" />
+        {state?.errors?.password && (
+          <div role="alert">
+            {state.errors.password.map((error) => (
+              <p key={error}>{error}</p>
+            ))}
+          </div>
+        )}
       </label>
       <button>Sign Up</button>
     </form>
