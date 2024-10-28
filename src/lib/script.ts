@@ -1,4 +1,4 @@
-import { PrismaClient } from "@prisma/client"
+import { PrismaClient, type User } from "@prisma/client"
 
 const prisma = new PrismaClient()
 
@@ -9,8 +9,7 @@ export const allTournaments = async () => {
     },
   })
 
-  
-return tournaments
+  return tournaments
 }
 
 export const newTournament = async (tournamentDto: any) => {
@@ -61,4 +60,18 @@ export const changeWinner = async (winnerDto: any) => {
   })
 
   return winner
+}
+
+export async function getUser(email: string): Promise<User | null> {
+  try {
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    })
+
+    return user
+  } catch {
+    throw new Error(`Failed to fetch user.`)
+  }
 }

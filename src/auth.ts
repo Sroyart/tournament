@@ -1,34 +1,30 @@
 import NextAuth from "next-auth"
 import Credentials from "next-auth/providers/credentials"
-// Your own logic for dealing with plaintext password strings; be careful!
-import { saltAndHashPassword } from "@/utils/password"
+import { authConfig } from "@/auth.config"
+import { z } from "zod"
+import bcrypt from "bcryptjs"
+import { getUser } from "@/lib/script"
 
-export const { handlers, signIn, signOut, auth } = NextAuth({
+export const { handlers, signIn, signOut } = NextAuth({
+  ...authConfig,
   providers: [
     Credentials({
-      // You can specify which fields should be submitted, by adding keys to the `credentials` object.
-      // e.g. domain, username, password, 2FA token, etc.
-      credentials: {
-        email: {},
-        password: {},
-      },
-      authorize: async (credentials) => {
-        let user = null
+      async authorize(credentials) {
+        const parsedCredentials = z
+          .object({ email: z.string().email(), password: z.string().min(6) })
+          .safeParse(credentials)
 
-        // logic to salt and hash password
-        const pwHash = saltAndHashPassword(credentials.password)
+        if (parsedCredentials.success) {
+          const { email, password } = parsedCredentials.data
+          const user = await getUser(email)
+          if (!user) return null
+          const passwordsMatch = await bcrypt.compare(password, user.password)
 
-        // logic to verify if the user exists
-        user = await getUserFromDb(credentials.email, pwHash)
-
-        if (!user) {
-          // No user found, so this is their first attempt to login
-          // meaning this is also the place you could do registration
-          throw new Error("User not found.")
+          if (passwordsMatch) return user
         }
+        console.log("Invalid credentials")
 
-        // return user object with their profile data
-        return user
+        return null
       },
     }),
   ],
