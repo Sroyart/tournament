@@ -10,9 +10,15 @@ export const register = async (
 ) => {
   const registerSchema = z.object({
     email: z.string().email({ message: "Please enter email address" }),
-    password: z.string().min(8, {
-      message: "At least 8 characters long",
-    }),
+    password: z
+      .string()
+      .min(8, {
+        message: "At least 8 characters long",
+      })
+      .refine((data) => data === formData.get("confirmPassword"), {
+        message: "Passwords do not match",
+      }),
+    confirmPassword: z.string(),
   })
   const email = formData.get("email") as string
   const password = formData.get("password") as string

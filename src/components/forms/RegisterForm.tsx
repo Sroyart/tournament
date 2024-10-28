@@ -30,6 +30,10 @@ const RegisterForm = () => {
           </div>
         )}
       </label>
+      <label>
+        Confirm password
+        <input name="confirmPassword" type="password" />
+      </label>
       <button>Sign Up</button>
     </form>
   )
