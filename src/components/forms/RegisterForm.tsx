@@ -33,6 +33,13 @@ const RegisterForm = () => {
       <label>
         Confirm password
         <input name="confirmPassword" type="password" />
+        {state?.errors?.confirmPassword && (
+          <div role="alert">
+            {state.errors.confirmPassword.map((error) => (
+              <p key={error}>{error}</p>
+            ))}
+          </div>
+        )}
       </label>
       <button>Sign Up</button>
     </form>
