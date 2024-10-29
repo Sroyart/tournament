@@ -9,7 +9,11 @@ const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(authentication, null)
 
   return (
-    <Form formAction={formAction} isPending={isPending}>
+    <Form
+      formAction={formAction}
+      isPending={isPending}
+      buttonText={{ pending: "Signing in...", default: "Sign in" }}
+    >
       <FormField name="email" type="email" label="Email" />
       <FormField name="password" type="password" label="Password" />
       {state && (
