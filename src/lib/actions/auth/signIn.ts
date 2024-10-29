@@ -3,8 +3,16 @@
 import { signIn } from "@/auth"
 import { AuthError } from "next-auth"
 
+const enum ResponseForm {
+  InvalidCredentials = "Invalid email or password.",
+  SomethingWentWrong = "Something went wrong.",
+}
+
 export const authentication = async (
-  prevState: "Invalid credentials." | "Something went wrong." | null,
+  prevState:
+    | ResponseForm.InvalidCredentials
+    | ResponseForm.SomethingWentWrong
+    | null,
   formData: FormData,
 ) => {
   try {
@@ -14,10 +22,10 @@ export const authentication = async (
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
-          return "Invalid email or password."
+          return ResponseForm.InvalidCredentials
 
         default:
-          return "Something went wrong."
+          return ResponseForm.SomethingWentWrong
       }
     }
 
