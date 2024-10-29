@@ -17,12 +17,12 @@ const LoginForm = () => {
       <FormField name="email" type="email" label="Email" />
       <FormField name="password" type="password" label="Password" />
       {state && (
-        <div
-          className="bg-red-intComp rounded-md text-red-secText p-4 mb-5"
+        <span
+          className="bg-red-intComp rounded-md text-red-secText p-3 mb-2 inline-block"
           role="alert"
         >
           {state}
-        </div>
+        </span>
       )}
     </Form>
   )

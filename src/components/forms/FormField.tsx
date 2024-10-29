@@ -21,7 +21,13 @@ const FormField: React.FC<Props> = ({ name, type, label, errors }) => (
     {errors && (
       <div role="alert">
         {errors.map((error) => (
-          <p key={error}>{error}</p>
+          <span
+            className="bg-red-intComp rounded-md text-red-secText p-3 mb-2 inline-block"
+            role="alert"
+            key={error}
+          >
+            {error}
+          </span>
         ))}
       </div>
     )}
