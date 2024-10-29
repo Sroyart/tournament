@@ -1,4 +1,4 @@
-"use server";
+"use server"
 
 import {
   changeWinner,
@@ -6,29 +6,23 @@ import {
   newTournament,
   removeMatch,
   removeTournament,
-} from "@/lib/script";
+} from "@/lib/script"
 
 export const postTournament = async (data: {
   name: string;
   Date: Date;
   type: string;
-}) => {
-  return await newTournament(data);
-};
+}) => await newTournament(data)
 
-export const deleteTournament = async (id: number) => {
-  return await removeTournament(id);
-};
+export const deleteTournament = async (id: number) => await removeTournament(id)
 
-export const postMatch = async (data: any) => {
-  return await newMatch(data);
-};
+export const postMatch = async (data: any) => await newMatch(data)
 
-export const deleteMatch = async (id: number) => {
-  return await removeMatch(id);
-};
+export const deleteMatch = async (id: number) => await removeMatch(id)
 
 export const updateWinner = async (data: any) => {
-  await changeWinner({ winner: data.winner, id: data.id });
-  return true;
-};
+  await changeWinner({ winner: data.winner, id: data.id })
+
+  
+return true
+}

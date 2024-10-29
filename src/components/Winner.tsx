@@ -1,13 +1,15 @@
-"use client";
+"use client"
 
-import { updateWinner } from "@/lib/actions/queries";
-import { useRouter } from "next/navigation";
-import React from "react";
+import { updateWinner } from "@/lib/actions/queries"
+import { useRouter } from "next/navigation"
+import React from "react"
 
 const Winner: React.FC<{ match: any }> = ({ match }) => {
-  const router = useRouter();
-  const [winner, setWinner] = React.useState<number | null>(null);
-  return (
+  const router = useRouter()
+  const [winner, setWinner] = React.useState<number | null>(null)
+
+  
+return (
     <>
       <button
         id="dropdownDefaultButton"
@@ -15,21 +17,24 @@ const Winner: React.FC<{ match: any }> = ({ match }) => {
         className="text-white mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-0.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button"
         onClick={() => {
-          const dropdown = document.getElementById("dropdown");
+          const dropdown = document.getElementById("dropdown")
+
           if (dropdown?.classList.contains("hidden")) {
-            dropdown.classList.remove("hidden");
+            dropdown.classList.remove("hidden")
           } else {
-            dropdown?.classList.add("hidden");
+            dropdown?.classList.add("hidden")
           }
+
           if (winner === null) {
-            return;
+            return
           }
+
           updateWinner({
             ...match,
-            winner: winner,
+            winner,
           }).then(() => {
-            router.refresh();
-          });
+            router.refresh()
+          })
         }}
       >
         Gagnant
@@ -59,13 +64,13 @@ const Winner: React.FC<{ match: any }> = ({ match }) => {
           aria-labelledby="dropdownDefaultButton"
         >
           <li
-            onClick={() => setWinner(match.team1)}
+            onClick={() => { setWinner(match.team1) }}
             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
           >
             {match.team1}
           </li>
           <li
-            onClick={() => setWinner(match.team2)}
+            onClick={() => { setWinner(match.team2) }}
             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
           >
             {match.team2}
@@ -73,7 +78,7 @@ const Winner: React.FC<{ match: any }> = ({ match }) => {
         </ul>
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Winner;
+export default Winner

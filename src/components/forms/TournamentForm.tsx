@@ -1,9 +1,9 @@
-"use client";
+"use client"
 
-import { postTournament } from "@/lib/actions/queries";
-import { useRouter } from "next/navigation";
-import React from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { postTournament } from "@/lib/actions/queries"
+import { useRouter } from "next/navigation"
+import React from "react"
+import { SubmitHandler, useForm } from "react-hook-form"
 
 type Tournament = {
   name: string;
@@ -12,14 +12,13 @@ type Tournament = {
 };
 
 const TournamentForm = () => {
-  const router = useRouter();
-  const { register, handleSubmit } = useForm<Tournament>();
-
+  const router = useRouter()
+  const { register, handleSubmit } = useForm<Tournament>()
   const onSubmit: SubmitHandler<Tournament> = (data) => {
     postTournament(data).then(() => {
-      router.refresh();
-    });
-  };
+      router.refresh()
+    })
+  }
 
   return (
     <div className="mt-4">
@@ -135,7 +134,7 @@ const TournamentForm = () => {
         </button>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default TournamentForm;
+export default TournamentForm
