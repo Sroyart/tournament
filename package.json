@@ -13,6 +13,7 @@
     "@auth/prisma-adapter": "^2.7.0",
     "@prisma/client": "^5.12.1",
     "bcryptjs": "^2.4.3",
+    "clsx": "^2.1.1",
     "next": "^15.0.1",
     "next-auth": "^5.0.0-beta.25",
     "prisma": "^5.12.1",
