@@ -1,5 +1,7 @@
 "use client"
 
+import Form from "@/components/forms/Form"
+import FormField from "@/components/forms/FormField"
 import { authentication } from "@/lib/actions/auth/signIn"
 import React, { useActionState } from "react"
 
@@ -7,20 +9,18 @@ const LoginForm = () => {
   const [state, formAction, isPending] = useActionState(authentication, null)
 
   return (
-    <form action={formAction}>
-      <label>
-        Email
-        <input name="email" type="email" />
-      </label>
-      <label>
-        Password
-        <input name="password" type="password" />
-        {state && <div role="alert">{state}</div>}
-      </label>
-      <button className="mt-4 w-full" aria-disabled={isPending}>
-        Log in
-      </button>
-    </form>
+    <Form formAction={formAction} isPending={isPending}>
+      <FormField name="email" type="email" label="Email" />
+      <FormField name="password" type="password" label="Password" />
+      {state && (
+        <div
+          className="bg-red-intComp rounded-md text-red-secText p-4 mb-5"
+          role="alert"
+        >
+          {state}
+        </div>
+      )}
+    </Form>
   )
 }
 
