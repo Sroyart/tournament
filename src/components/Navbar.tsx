@@ -12,7 +12,6 @@ const navLinks = [
   { title: "Tournois", path: "/tournaments" },
 ]
 const Navbar = async () => {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const session = await auth()
 
   return (
