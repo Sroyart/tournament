@@ -8,8 +8,7 @@ const Winner: React.FC<{ match: any }> = ({ match }) => {
   const router = useRouter()
   const [winner, setWinner] = React.useState<number | null>(null)
 
-  
-return (
+  return (
     <>
       <button
         id="dropdownDefaultButton"
@@ -64,13 +63,17 @@ return (
           aria-labelledby="dropdownDefaultButton"
         >
           <li
-            onClick={() => { setWinner(match.team1) }}
+            onClick={() => {
+              setWinner(match.team1)
+            }}
             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
           >
             {match.team1}
           </li>
           <li
-            onClick={() => { setWinner(match.team2) }}
+            onClick={() => {
+              setWinner(match.team2)
+            }}
             className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
           >
             {match.team2}

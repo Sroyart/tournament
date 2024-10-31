@@ -6,10 +6,10 @@ import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 type Tournament = {
-  name: string;
-  Date: Date;
-  type: string;
-};
+  name: string
+  Date: Date
+  type: string
+}
 
 const TournamentForm = () => {
   const router = useRouter()

@@ -16,7 +16,6 @@ export const authentication = async (
   formData: FormData,
 ) => {
   try {
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
     await signIn("credentials", formData)
   } catch (error: unknown) {
     if (error instanceof AuthError) {

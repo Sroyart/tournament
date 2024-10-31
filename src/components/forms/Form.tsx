@@ -17,7 +17,7 @@ const Form: React.FC<Props> = ({
     <form action={formAction} className="w-96 max-w-full">
       <fieldset>{children}</fieldset>
       <button
-        className="bg-blue-500 hover:bg-blue-600 my-4 text-white w-full py-2 rounded-md disabled:bg-blue-950 disabled:text-blue-700"
+        className="bg-blue-500 hover:bg-blue-600 my-4 active:bg-blue-700 text-white w-full py-2 rounded-md disabled:bg-blue-100 disabled:text-blue-400"
         aria-disabled={isPending}
         disabled={isPending}
       >
