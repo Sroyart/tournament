@@ -6,10 +6,10 @@ import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"
 
 type Match = {
-  team1: string;
-  team2: string;
-  Date: Date;
-};
+  team1: string
+  team2: string
+  Date: Date
+}
 
 const MatchForm: React.FC<{ tournamentId: number }> = ({ tournamentId }) => {
   const router = useRouter()
@@ -23,8 +23,8 @@ const MatchForm: React.FC<{ tournamentId: number }> = ({ tournamentId }) => {
       router.refresh()
     })
   }
-  
-return (
+
+  return (
     <form className="max-w-sm mx-auto" onSubmit={handleSubmit(onSubmit)}>
       <div className="mb-5"></div>
       <div className="mb-5">

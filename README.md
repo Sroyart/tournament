@@ -2,9 +2,7 @@ Pour ce projet, j'ai utilisé les technologies Nextjs et Prisma.
 
 Il faut modifier le fichier .env en remplaçant l'URL de la base de données.
 
-J'utilise Prisma, donc il faut lancer la commande suivante : ```bash npx prisma migrate dev --name init```.
-
-
+J'utilise Prisma, donc il faut lancer la commande suivante : `bash npx prisma migrate dev --name init`.
 
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
