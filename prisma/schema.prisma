@@ -19,6 +19,8 @@ model Tournaments {
   matches      Matches[] 
   date         DateTime
   type         String
+  user         User @relation(fields: [userId], references: [id])
+  userId       String
 }
 
 model Matches {
@@ -66,6 +68,7 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  tournaments   Tournaments[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
