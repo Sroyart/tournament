@@ -17,7 +17,7 @@ model Tournaments {
   id           Int           @id @default(autoincrement())
   name         String
   matches      Matches[] 
-  Date         DateTime
+  date         DateTime
   type         String
 }
 
@@ -33,7 +33,7 @@ model Matches {
   // winnerId     Int
   team1        String
   team2        String
-  Date         DateTime 
+  date         DateTime 
   winner       String?
 }
 

@@ -23,7 +23,7 @@ const page = async () => {
               {tournament.name}
             </h2>
             <p className="font-normal text-gray-700 dark:text-gray-400">
-              {tournament.Date.toString()}
+              {tournament.date.toString()}
             </p>
             <More id={tournament.id}>
               <MatchForm tournamentId={tournament.id} />
@@ -38,7 +38,7 @@ const page = async () => {
                         Gagnant : {match.winner}
                       </span>
                     ) : null}{" "}
-                    - {match.Date.toString().split("T")[0]}
+                    - {match.date.toString().split("T")[0]}
                     <DeleteMatch id={match.id} />
                   </div>
                 ))}

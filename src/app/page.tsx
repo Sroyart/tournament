@@ -22,11 +22,11 @@ export default async function Home() {
                   Gagnant : {match.winner}
                 </span>
               ) : null}{" "}
-              - {match.Date.toString().split("T")[0]}
+              - {match.date.toString().split("T")[0]}
             </div>
           ))}
           <p className="font-normal text-gray-700 dark:text-gray-400">
-            {tournament.Date.toString()}
+            {tournament.date.toString()}
           </p>
         </div>
       ))}

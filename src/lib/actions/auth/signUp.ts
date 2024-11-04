@@ -2,22 +2,9 @@
 
 import prisma from "@/lib/db"
 import { getUser } from "@/lib/script"
+import errorsArrayToObject from "@/utils/errorsHandling"
 import { saltAndHashPassword } from "@/utils/password"
 import { z } from "zod"
-
-const errorsArrayToObject = (errors: z.ZodIssue[]) =>
-  errors.reduce<Record<string, string[]>>((acc, error) => {
-    const [key]: (number | string)[] = error.path
-
-    if (!key) {
-      throw new Error("Key is missing")
-    }
-
-    acc[key] ??= []
-    acc[key].push(error.message)
-
-    return acc
-  }, {})
 
 export const register = async (
   prevState: {
