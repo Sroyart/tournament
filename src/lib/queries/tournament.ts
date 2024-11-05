@@ -9,7 +9,9 @@ type Tournament = {
 }
 
 export async function allTournaments() {
-  return await prisma.tournaments.findMany()
+  return await prisma.tournaments.findMany({
+    orderBy: { date: "asc" },
+  })
 }
 
 export const newTournament = async (tournament: Tournament) => {
@@ -39,6 +41,7 @@ export const userTournaments = async () => {
     where: {
       userId: session.user.id,
     },
+    orderBy: { date: "asc" },
   })
 }
 
