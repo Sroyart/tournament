@@ -9,9 +9,13 @@ type Tournament = {
 }
 
 export async function allTournaments() {
-  return await prisma.tournaments.findMany({
-    orderBy: { date: "asc" },
-  })
+  try {
+    return await prisma.tournaments.findMany({
+      orderBy: { date: "asc" },
+    })
+  } catch {
+    throw new Error("Failed to fetch tournaments.")
+  }
 }
 
 export const newTournament = async (tournament: Tournament) => {
@@ -37,12 +41,16 @@ export const userTournaments = async () => {
     throw new Error(`You need to be logged in to see your tournaments.`)
   }
 
-  return await prisma.tournaments.findMany({
-    where: {
-      userId: session.user.id,
-    },
-    orderBy: { date: "asc" },
-  })
+  try {
+    return await prisma.tournaments.findMany({
+      where: {
+        userId: session.user.id,
+      },
+      orderBy: { date: "asc" },
+    })
+  } catch {
+    throw new Error("Failed to fetch tournaments.")
+  }
 }
 
 const prismaErrorHandling = (e: unknown) => {
