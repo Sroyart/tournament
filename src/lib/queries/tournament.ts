@@ -8,6 +8,10 @@ type Tournament = {
   type: string
 }
 
+export async function allTournaments() {
+  return await prisma.tournaments.findMany()
+}
+
 export const newTournament = async (tournament: Tournament) => {
   const session = await auth()
 
