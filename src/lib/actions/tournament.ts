@@ -26,7 +26,7 @@ export const postTournament = async (
       name: z
         .string()
         .min(3, { message: "Please enter a name" })
-        .max(15, { message: "Name is too long" }),
+        .max(20, { message: "Name is too long" }),
       date: z.date({ message: "Please enter a date" }),
       type: z.string({ message: "Please enter a type" }),
     })

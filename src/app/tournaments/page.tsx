@@ -1,53 +1,25 @@
-import DeleteMatch from "@/components/DeleteMatch"
-import DeleteTournament from "@/components/DeleteTournament"
-import MatchForm from "@/components/forms/MatchForm"
+import Card from "@/components/Card"
 import TournamentForm from "@/components/forms/TournamentForm"
-import More from "@/components/More"
-import Winner from "@/components/Winner"
-import { allTournaments } from "@/lib/script"
+import { userTournaments } from "@/lib/queries/tournament"
 import React from "react"
 
 const page = async () => {
-  const tournaments: any = await allTournaments()
+  const tournaments = await userTournaments()
 
   return (
     <>
       <TournamentForm />
-      <div className="flex min-h-screen my-2 flex-col items-center p-24">
-        {tournaments.map((tournament: any) => (
-          <div
-            key={tournament.id}
-            className="block w-10/12 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
-          >
-            <h2 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-              {tournament.name}
-            </h2>
-            <p className="font-normal text-gray-700 dark:text-gray-400">
-              {tournament.date.toString()}
-            </p>
-            <More id={tournament.id}>
-              <MatchForm tournamentId={tournament.id} />
-              <tr>
-                {tournament.matches.map((match: any) => (
-                  <div key={match.id}>
-                    <Winner match={match} />
-                    <span className="text-blue-600">{match.team1}</span> vs{" "}
-                    <span className="text-red-600">{match.team2}</span> -{" "}
-                    {match.winner ? (
-                      <span className="text-yellow-600 py-2">
-                        Gagnant : {match.winner}
-                      </span>
-                    ) : null}{" "}
-                    - {match.date.toString().split("T")[0]}
-                    <DeleteMatch id={match.id} />
-                  </div>
-                ))}
-              </tr>
-            </More>
-            <DeleteTournament id={tournament.id} />
-          </div>
-        ))}
-      </div>
+      {tournaments.length === 0 ? (
+        <div className="flex justify-center">
+          <span>No tournaments yet.</span>
+        </div>
+      ) : (
+        <div className="grid sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 my-2 p-24">
+          {tournaments.map((tournament) => (
+            <Card key={tournament.id} tournament={tournament} />
+          ))}
+        </div>
+      )}
     </>
   )
 }

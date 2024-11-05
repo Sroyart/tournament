@@ -24,6 +24,20 @@ export const newTournament = async (tournament: Tournament) => {
   }
 }
 
+export const userTournaments = async () => {
+  const session = await auth()
+
+  if (!session?.user?.id) {
+    throw new Error(`You need to be logged in to see your tournaments.`)
+  }
+
+  return await prisma.tournaments.findMany({
+    where: {
+      userId: session.user.id,
+    },
+  })
+}
+
 const prismaErrorHandling = (e: unknown) => {
   if (e instanceof Prisma.PrismaClientKnownRequestError) {
     throw new Error(e.message)
