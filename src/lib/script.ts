@@ -12,17 +12,6 @@ export const allTournaments = async () => {
   return tournaments
 }
 
-export const newTournament = async (tournamentDto: any) => {
-  const tournament = await prisma.tournaments.create({
-    data: {
-      ...tournamentDto,
-      Date: new Date(tournamentDto.Date),
-    },
-  })
-
-  return tournament
-}
-
 export const removeTournament = async (id: number) => {
   const tournament = await prisma.tournaments.delete({
     where: {

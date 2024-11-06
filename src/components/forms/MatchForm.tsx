@@ -1,6 +1,6 @@
 "use client"
 
-import { postMatch } from "@/lib/actions/queries"
+import { postMatch } from "@/lib/actions/tournament"
 import { useRouter } from "next/navigation"
 import React from "react"
 import { SubmitHandler, useForm } from "react-hook-form"

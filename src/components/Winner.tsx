@@ -1,6 +1,6 @@
 "use client"
 
-import { updateWinner } from "@/lib/actions/queries"
+import { updateWinner } from "@/lib/actions/tournament"
 import { useRouter } from "next/navigation"
 import React from "react"
 

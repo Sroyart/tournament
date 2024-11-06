@@ -25,6 +25,14 @@ export const authConfig = {
 
       return true
     },
+    session: ({ session, token }) => {
+      session.user.id = token.sub ?? ""
+
+      return session
+    },
+  },
+  session: {
+    strategy: "jwt",
   },
   providers: [],
 } satisfies NextAuthConfig

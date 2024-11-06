@@ -1,6 +1,6 @@
 "use client"
 
-import { deleteTournament } from "@/lib/actions/queries"
+import { deleteTournament } from "@/lib/actions/tournament"
 import { useRouter } from "next/navigation"
 import React from "react"
 

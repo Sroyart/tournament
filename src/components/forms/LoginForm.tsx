@@ -1,7 +1,7 @@
 "use client"
 
 import Form from "@/components/forms/Form"
-import FormField from "@/components/forms/FormField"
+import { FormField } from "@/components/forms/FormField"
 import { authentication } from "@/lib/actions/auth/signIn"
 import React, { useActionState } from "react"
 
