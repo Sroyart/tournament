@@ -1,5 +1,6 @@
 "use server"
 
+import { signIn } from "@/auth"
 import prisma from "@/lib/db"
 import { getUser } from "@/lib/script"
 import errorsArrayToObject from "@/utils/errorsHandling"
@@ -48,6 +49,8 @@ export const register = async (
       password: passwordHashed,
     },
   })
+
+  await signIn("credentials", { email, password, redirectTo: "/" })
 
   return { email, password, errors: null }
 }

@@ -11,7 +11,7 @@ const DropdownSession = () => (
         <form
           action={async () => {
             "use server"
-            await signOut()
+            await signOut({ redirectTo: "/" })
           }}
         >
           <button className="flex bg-blue-50 p-2 items-center gap-1 hover:bg-blue-100 active:bg-blue-200">
