@@ -14,7 +14,7 @@ datasource db {
 }
 
 model Tournaments {
-  id           Int           @id @default(autoincrement())
+  id           String           @id @default(uuid())
   name         String
   matches      Matches[] 
   date         DateTime
@@ -26,7 +26,7 @@ model Tournaments {
 model Matches {
   id           Int           @id @default(autoincrement())
   tournament   Tournaments   @relation(fields: [tournamentId], references: [id], onDelete: Cascade)
-  tournamentId Int
+  tournamentId String
   // team1        Teams         @relation("team1", fields: [team1Id], references: [id])
   // team1Id      Int
   // team2        Teams         @relation("team2", fields: [team2Id], references: [id])
