@@ -15,8 +15,11 @@ export const authentication = async (
     | null,
   formData: FormData,
 ) => {
+  const email = formData.get("email") as string
+  const password = formData.get("password") as string
+
   try {
-    await signIn("credentials", formData)
+    await signIn("credentials", { email, password, redirectTo: "/" })
   } catch (error: unknown) {
     if (error instanceof AuthError) {
       switch (error.type) {
