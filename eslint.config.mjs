@@ -335,7 +335,7 @@ export default [
       ],
 
       "indent": "off",
-      "linebreak-style": ["error", "windows"],
+      "linebreak-style": ["off"],
       "newline-before-return": "error",
       "no-undef": "error",
       "padded-blocks": ["error", "never"],
