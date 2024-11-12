@@ -18,6 +18,34 @@ export async function allTournaments() {
   }
 }
 
+export async function tournamentById(id: string) {
+  try {
+    return await prisma.tournaments.findUnique({
+      where: { id },
+    })
+  } catch {
+    throw new Error("Failed to fetch tournament.")
+  }
+}
+
+export const deleteTournament = async (id: string) => {
+  try {
+    return await prisma.tournaments.delete({
+      where: { id },
+    })
+  } catch (error) {
+    if (error instanceof Prisma.PrismaClientKnownRequestError) {
+      return new Response(error.message, {
+        status: 500,
+      })
+    }
+
+    return new Response(`Failed to delete tournament.`, {
+      status: 500,
+    })
+  }
+}
+
 export const newTournament = async (tournament: Tournament) => {
   const session = await auth()
 

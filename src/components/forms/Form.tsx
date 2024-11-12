@@ -1,3 +1,4 @@
+import Button from "@/components/Button"
 import React from "react"
 
 type Props = {
@@ -16,13 +17,7 @@ const Form: React.FC<Props> = ({
   <div className="flex justify-center items-center h-full my-16 ">
     <form action={formAction} className="w-96 max-w-full">
       <fieldset>{children}</fieldset>
-      <button
-        className="bg-blue-500 hover:bg-blue-600 my-4 active:bg-blue-700 text-white w-full py-2 rounded-md disabled:bg-blue-100 disabled:text-blue-400"
-        aria-disabled={isPending}
-        disabled={isPending}
-      >
-        {isPending ? buttonText.pending : buttonText.default}
-      </button>
+      <Button isPending={isPending} buttonText={buttonText} />
     </form>
   </div>
 )

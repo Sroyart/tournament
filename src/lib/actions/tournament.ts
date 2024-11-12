@@ -1,12 +1,7 @@
 "use server"
 
 import { newTournament } from "@/lib/queries/tournament"
-import {
-  changeWinner,
-  newMatch,
-  removeMatch,
-  removeTournament,
-} from "@/lib/script"
+import { changeWinner, newMatch, removeMatch } from "@/lib/script"
 import errorsArrayToObject from "@/utils/errorsHandling"
 import { z } from "zod"
 
@@ -49,8 +44,6 @@ export const postTournament = async (
 
   return { name, date, type, errors: null }
 }
-
-export const deleteTournament = async (id: number) => await removeTournament(id)
 
 export const postMatch = async (data: any) => await newMatch(data)
 

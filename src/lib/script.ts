@@ -12,16 +12,6 @@ export const allTournaments = async () => {
   return tournaments
 }
 
-export const removeTournament = async (id: number) => {
-  const tournament = await prisma.tournaments.delete({
-    where: {
-      id,
-    },
-  })
-
-  return tournament
-}
-
 export const newMatch = async (matchDto: any) => {
   const match = await prisma.matches.create({
     data: matchDto,
