@@ -11,7 +11,7 @@ const Card: React.FC<Props> = ({ tournament: { name, date, type } }) => (
     <div className="dark:text-white text-sm text-gray-500">
       <span>{type}</span>
     </div>
-    <div className="text-black dark:text-white text-opacity-50 text-sm">
+    <div className="text-black-950 dark:text-white text-opacity-50 text-sm">
       <span className="float-end ">{date.toLocaleDateString()}</span>
     </div>
   </div>

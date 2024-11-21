@@ -25,7 +25,7 @@ const Navbar = async () => {
           className="flex items-center space-x-3 rtl:space-x-reverse"
         >
           <Image src={icon} width={50} height={50} alt="Logo" />
-          <span className="self-center text-2xl font-semibold whitespace-nowrap text-black dark:text-white">
+          <span className="self-center text-2xl font-semibold whitespace-nowrap text-black-950 dark:text-white">
             TourNament
           </span>
         </Link>

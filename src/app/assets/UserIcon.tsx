@@ -7,7 +7,7 @@ const UserIcon = (props: React.SVGProps<SVGSVGElement>) => (
     width={24}
     height={24}
     fill={"none"}
-    className="text-black dark:text-white"
+    className="text-black-950 dark:text-white"
     {...props}
   >
     <path
