@@ -1,8 +1,7 @@
 "use server"
 
 import { signIn } from "@/auth"
-import prisma from "@/lib/db"
-import { getUser } from "@/lib/script"
+import { signUp } from "@/lib/queries/user"
 import errorsArrayToObject from "@/utils/errorsHandling"
 import { saltAndHashPassword } from "@/utils/password"
 import { z } from "zod"
@@ -26,29 +25,30 @@ export const register = async (
       }),
     confirmPassword: z.string(),
   })
-  const email = formData.get("email") as string
-  const password = formData.get("password") as string
-  const confirmPassword = formData.get("confirmPassword") as string
-  const result = registerSchema.safeParse({ email, password, confirmPassword })
+  const { success, error, data } = registerSchema.safeParse(
+    Object.fromEntries(formData),
+  )
 
-  if (!result.success) {
-    return { email, password, errors: errorsArrayToObject(result.error.errors) }
+  if (!success) {
+    return {
+      email: "",
+      password: "",
+      errors: errorsArrayToObject(error.errors),
+    }
   }
 
-  try {
-    await getUser(email)
-  } catch {
-    return { email, password, errors: { email: ["Email is already taken"] } }
-  }
-
+  const { email, password, confirmPassword } = data
   const passwordHashed = await saltAndHashPassword(password)
 
-  await prisma.user.create({
-    data: {
-      email,
-      password: passwordHashed,
-    },
-  })
+  if (password !== confirmPassword) {
+    throw new Error("Passwords do not match")
+  }
+
+  const registerRespond = await signUp(email, password, passwordHashed)
+
+  if (registerRespond.errors) {
+    return registerRespond
+  }
 
   await signIn("credentials", { email, password, redirectTo: "/" })
 
