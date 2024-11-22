@@ -37,13 +37,8 @@ export const register = async (
     }
   }
 
-  const { email, password, confirmPassword } = data
+  const { email, password } = data
   const passwordHashed = await saltAndHashPassword(password)
-
-  if (password !== confirmPassword) {
-    throw new Error("Passwords do not match")
-  }
-
   const registerRespond = await signUp(email, password, passwordHashed)
 
   if (registerRespond.errors) {
