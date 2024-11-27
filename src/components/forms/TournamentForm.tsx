@@ -26,7 +26,7 @@ const TournamentForm = () => {
             label="Tournament name"
             type="text"
             name="name"
-            errors={state?.errors?.name}
+            errors={state?.errors.name}
           />
         </div>
         <div className="mb-5">
@@ -37,7 +37,7 @@ const TournamentForm = () => {
                 name="type"
                 type=""
                 options={options}
-                errors={state?.errors?.type}
+                errors={state?.errors.type}
               />
             </div>
           </div>
@@ -46,7 +46,7 @@ const TournamentForm = () => {
           label="Date"
           type="date"
           name="date"
-          errors={state?.errors?.date}
+          errors={state?.errors.date}
         />
       </Form>
     </div>

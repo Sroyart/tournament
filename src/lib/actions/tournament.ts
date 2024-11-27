@@ -3,6 +3,7 @@
 import { newTournament } from "@/lib/queries/tournament"
 import { changeWinner, newMatch, removeMatch } from "@/lib/script"
 import errorsArrayToObject from "@/utils/errorsHandling"
+import { redirect } from "next/navigation"
 import { z } from "zod"
 
 export const postTournament = async (
@@ -36,13 +37,13 @@ export const postTournament = async (
     }
   }
 
-  await newTournament({
+  const { id } = await newTournament({
     name,
     date,
     type,
   })
 
-  return { name, date, type, errors: null }
+  return redirect(`/tournament/${id}`)
 }
 
 export const postMatch = async (data: any) => await newMatch(data)
