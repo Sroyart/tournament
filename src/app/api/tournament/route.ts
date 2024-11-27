@@ -1,4 +1,6 @@
+import { auth } from "@/auth"
 import { deleteTournament, tournamentById } from "@/lib/queries/tournament"
+import type { Tournaments } from "@prisma/client"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function DELETE(request: NextRequest) {
@@ -19,5 +21,19 @@ export async function DELETE(request: NextRequest) {
     })
   }
 
+  const isOwner = await ownerCheck(tournament)
+
+  if (isOwner) {
+    return new Response(`Unauthorized`, {
+      status: 401,
+    })
+  }
+
   return NextResponse.json(await deleteTournament(id))
+}
+
+async function ownerCheck(tournament: Tournaments) {
+  const session = await auth()
+
+  return session?.user?.id === tournament.userId
 }
