@@ -3,7 +3,7 @@ import TournamentForm from "@/components/forms/TournamentForm"
 import { userTournaments } from "@/lib/queries/tournament"
 import React from "react"
 
-const page = async () => {
+export default async function Page() {
   const tournaments = await userTournaments()
 
   return (
@@ -19,5 +19,3 @@ const page = async () => {
     </>
   )
 }
-
-export default page
