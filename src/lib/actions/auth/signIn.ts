@@ -15,8 +15,7 @@ export const authentication = async (
     | null,
   formData: FormData,
 ) => {
-  const email = formData.get("email") as string
-  const password = formData.get("password") as string
+  const { email, password } = Object.fromEntries(formData)
 
   try {
     await signIn("credentials", { email, password, redirectTo: "/" })
