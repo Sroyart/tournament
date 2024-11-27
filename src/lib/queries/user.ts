@@ -25,13 +25,21 @@ export const signUp = async (
             email: ["Email already exist"],
             password: [],
             confirmPassword: [],
+            others: [],
           },
         }
       }
-
-      throw new Error()
     }
 
-    throw new Error()
+    return {
+      email,
+      password,
+      errors: {
+        email: [],
+        password: [],
+        confirmPassword: [],
+        others: ["Something went wrong"],
+      },
+    }
   }
 }

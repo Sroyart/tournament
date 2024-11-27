@@ -1,3 +1,4 @@
+import Alert from "@/components/forms/Alert"
 import React from "react"
 
 type Props = {
@@ -5,6 +6,7 @@ type Props = {
   children: React.ReactNode
   isPending: boolean
   buttonText: { pending: string; default: string }
+  errors?: string[]
 }
 
 const Form: React.FC<Props> = ({
@@ -12,6 +14,7 @@ const Form: React.FC<Props> = ({
   children,
   isPending,
   buttonText,
+  errors,
 }) => (
   <div className="flex justify-center items-center h-full my-16 ">
     <form action={formAction} className="w-96 max-w-full">
@@ -23,6 +26,7 @@ const Form: React.FC<Props> = ({
       >
         {isPending ? buttonText.pending : buttonText.default}
       </button>
+      <Alert errors={errors} />
     </form>
   </div>
 )
