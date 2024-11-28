@@ -1,6 +1,6 @@
 import { auth } from "@/auth"
 import prisma from "@/lib/db"
-import { Prisma } from "@prisma/client"
+import { Prisma, type Tournaments } from "@prisma/client"
 
 type Tournament = {
   name: string
@@ -12,6 +12,7 @@ export async function allTournaments() {
   try {
     return await prisma.tournaments.findMany({
       orderBy: { date: "asc" },
+      where: { isPublic: true },
     })
   } catch {
     throw new Error("Failed to fetch tournaments.")
@@ -78,6 +79,21 @@ export const userTournaments = async () => {
     })
   } catch {
     throw new Error("Failed to fetch tournaments.")
+  }
+}
+
+export const updateTournament = async (tournament: Tournaments) => {
+  try {
+    return await prisma.tournaments.update({
+      where: { id: tournament.id },
+      data: tournament,
+    })
+  } catch (e) {
+    if (e instanceof Prisma.PrismaClientKnownRequestError) {
+      throw new Error(e.message)
+    }
+
+    throw new Error(`Failed to update tournament.`)
   }
 }
 

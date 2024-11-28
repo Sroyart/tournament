@@ -1,6 +1,5 @@
-import { auth } from "@/auth"
 import { deleteTournament, tournamentById } from "@/lib/queries/tournament"
-import type { Tournaments } from "@prisma/client"
+import { ownerCheck } from "@/utils/ownerCheck"
 import { NextRequest, NextResponse } from "next/server"
 
 export async function DELETE(request: NextRequest) {
@@ -30,10 +29,4 @@ export async function DELETE(request: NextRequest) {
   }
 
   return NextResponse.json(await deleteTournament(id))
-}
-
-async function ownerCheck(tournament: Tournaments) {
-  const session = await auth()
-
-  return session?.user?.id === tournament.userId
 }

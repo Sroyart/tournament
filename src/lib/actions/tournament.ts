@@ -1,8 +1,11 @@
 "use server"
 
-import { newTournament } from "@/lib/queries/tournament"
+import { newTournament, updateTournament } from "@/lib/queries/tournament"
 import { changeWinner, newMatch, removeMatch } from "@/lib/script"
 import errorsArrayToObject from "@/utils/errorsHandling"
+import { ownerCheck } from "@/utils/ownerCheck"
+import type { Tournaments } from "@prisma/client"
+import { revalidatePath } from "next/cache"
 import { redirect } from "next/navigation"
 import { z } from "zod"
 
@@ -44,6 +47,20 @@ export const postTournament = async (
   })
 
   return redirect(`/tournament/${id}`)
+}
+
+export const updateTournamentAction = async (tournament: Tournaments) => {
+  const isOwner = await ownerCheck(tournament)
+
+  if (!isOwner) {
+    return { error: ["You are not the owner of this tournament"] }
+  }
+
+  await updateTournament(tournament)
+
+  revalidatePath(`/tournament/${tournament.id}`)
+
+  return { error: [] }
 }
 
 export const postMatch = async (data: any) => await newMatch(data)

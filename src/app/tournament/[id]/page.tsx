@@ -1,5 +1,6 @@
 import { auth } from "@/auth"
 import DeleteButton from "@/components/DeleteButton"
+import Switch from "@/components/Switch"
 import { tournamentById } from "@/lib/queries/tournament"
 import { notFound } from "next/navigation"
 
@@ -19,6 +20,7 @@ export default async function Page({
 
   return (
     <div className="max-w-screen-xl mx-auto">
+      <Switch tournament={tournament} />
       <h1>{tournament.name}</h1>
       <p>{tournament.date.toLocaleDateString()}</p>
       <p>{tournament.type}</p>
