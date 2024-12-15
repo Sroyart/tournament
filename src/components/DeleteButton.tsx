@@ -38,6 +38,7 @@ const DeleteButton: React.FC<{ id: string }> = ({ id }) => {
         onClick={() => deleteTournament()}
         isPending={state.isPending}
         buttonText={{ pending: "Deleting...", default: "Delete" }}
+        color="red"
       />
     </>
   )

@@ -2,7 +2,7 @@ import React from "react"
 
 type ButtonSubmit = {
   type?: "submit"
-  onClick: never
+  onClick?: never
 }
 
 type ButtonOnClickProps = {
@@ -13,6 +13,7 @@ type ButtonOnClickProps = {
 type Props = {
   isPending: boolean
   buttonText: { pending: string; default: string }
+  color?: "red"
 } & (ButtonSubmit | ButtonOnClickProps)
 
 const Button: React.FC<Props> = ({
@@ -20,9 +21,10 @@ const Button: React.FC<Props> = ({
   buttonText,
   type = "submit",
   onClick,
+  color = "blue",
 }) => (
   <button
-    className="bg-blue-500 hover:bg-blue-600 my-4 active:bg-blue-700 text-white w-full py-2 rounded-md disabled:bg-blue-100 disabled:text-blue-400"
+    className={`bg-${color}-500 hover:bg-blue-600 my-4 active:bg-blue-700 text-white w-full py-2 rounded-md disabled:bg-blue-100 disabled:text-blue-400`}
     aria-disabled={isPending}
     disabled={isPending}
     type={type}

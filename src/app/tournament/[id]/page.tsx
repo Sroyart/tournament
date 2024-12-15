@@ -20,11 +20,17 @@ export default async function Page({
 
   return (
     <div className="max-w-screen-xl mx-auto">
-      <Switch tournament={tournament} />
+      <div className="flex justify-end">
+        <Switch tournament={tournament} />
+      </div>
       <h1>{tournament.name}</h1>
       <p>{tournament.date.toLocaleDateString()}</p>
       <p>{tournament.type}</p>
-      {tournament.userId === session?.user?.id && <DeleteButton id={id} />}
+      {tournament.userId === session?.user?.id && (
+        <div className="w-24">
+          <DeleteButton id={id} />
+        </div>
+      )}
     </div>
   )
 }
