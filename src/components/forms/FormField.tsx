@@ -47,19 +47,7 @@ const DropdownField: React.FC<DropdownProps> = ({
         </option>
       ))}
     </select>
-    {errors && (
-      <div role="alert">
-        {errors.map((error) => (
-          <span
-            className="bg-red-intComp rounded-md text-red-secText p-3 mb-2 inline-block w-full text-center"
-            role="alert"
-            key={error}
-          >
-            {error}
-          </span>
-        ))}
-      </div>
-    )}
+    <Alert errors={errors} />
   </>
 )
 
