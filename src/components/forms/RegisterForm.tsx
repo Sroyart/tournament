@@ -6,12 +6,14 @@ import { register } from "@/lib/actions/auth/signUp"
 import React, { useActionState } from "react"
 
 type RegisterFieldsType = {
-  name: "email" | "password" | "confirmPassword"
-  type: "email" | "password"
+  name: "firstName" | "lastName" | "email" | "password" | "confirmPassword"
+  type: "text" | "email" | "password"
   label: string
 }
 
 const fields: RegisterFieldsType[] = [
+  { name: "firstName", type: "text", label: "First name" },
+  { name: "lastName", type: "text", label: "Last name" },
   { name: "email", type: "email", label: "Email" },
   { name: "password", type: "password", label: "Password" },
   { name: "confirmPassword", type: "password", label: "Confirm password" },

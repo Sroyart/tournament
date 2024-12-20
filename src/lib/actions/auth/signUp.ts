@@ -6,14 +6,16 @@ import errorsArrayToObject from "@/utils/errorsHandling"
 import { saltAndHashPassword } from "@/utils/password"
 import { z } from "zod"
 
-export const register = async (
-  prevState: {
-    email: string
-    password: string
-  } | null,
-  formData: FormData,
-) => {
-  const registerSchema = z.object({
+const schemaBuilder = (formData: FormData) =>
+  z.object({
+    firstName: z
+      .string()
+      .min(2, { message: "At least 2 characters long" })
+      .max(50, { message: "At most 50 characters long" }),
+    lastName: z
+      .string()
+      .min(2, { message: "At least 2 characters long" })
+      .max(50, { message: "At most 50 characters long" }),
     email: z.string().email({ message: "Please enter email address" }),
     password: z
       .string()
@@ -25,27 +27,48 @@ export const register = async (
       }),
     confirmPassword: z.string(),
   })
-  const { success, error, data } = registerSchema.safeParse(
+
+export const register = async (
+  prevState: {
+    firstName: string
+    lastName: string
+    email: string
+    password: string
+  } | null,
+  formData: FormData,
+) => {
+  const { success, error, data } = schemaBuilder(formData).safeParse(
     Object.fromEntries(formData),
   )
 
   if (!success) {
     return {
+      firstName: "",
+      lastName: "",
       email: "",
       password: "",
       errors: errorsArrayToObject(error.errors),
     }
   }
 
-  const { email, password } = data
+  const { firstName, lastName, email, password } = data
   const passwordHashed = await saltAndHashPassword(password)
-  const registerRespond = await signUp(email, password, passwordHashed)
+  const registerRespond = await signUp({
+    ...data,
+    password: passwordHashed,
+  })
 
   if (registerRespond.errors) {
     return registerRespond
   }
 
-  await signIn("credentials", { email, password, redirectTo: "/" })
+  await signIn("credentials", {
+    firstName,
+    lastName,
+    email,
+    password,
+    redirectTo: "/",
+  })
 
-  return { email, password, errors: null }
+  return { firstName, lastName, email, password, errors: null }
 }

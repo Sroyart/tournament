@@ -1,16 +1,33 @@
 import { Prisma } from "@prisma/client"
 import prisma from "@/lib/db"
 
-export const signUp = async (
-  email: string,
-  password: string,
-  passwordHashed: string,
-) => {
+const errorArray = {
+  firstName: [],
+  lastName: [],
+  email: [],
+  password: [],
+  confirmPassword: [],
+  others: [],
+}
+
+export const signUp = async ({
+  firstName,
+  lastName,
+  email,
+  password,
+}: {
+  firstName: string
+  lastName: string
+  email: string
+  password: string
+}) => {
   try {
     const register = await prisma.user.create({
       data: {
+        firstName,
+        lastName,
         email,
-        password: passwordHashed,
+        password,
       },
     })
 
@@ -19,25 +36,25 @@ export const signUp = async (
     if (e instanceof Prisma.PrismaClientKnownRequestError) {
       if (e.code === "P2002") {
         return {
+          firstName,
+          lastName,
           email,
           password,
           errors: {
+            ...errorArray,
             email: ["Email already exist"],
-            password: [],
-            confirmPassword: [],
-            others: [],
           },
         }
       }
     }
 
     return {
+      firstName,
+      lastName,
       email,
       password,
       errors: {
-        email: [],
-        password: [],
-        confirmPassword: [],
+        ...errorArray,
         others: ["Something went wrong"],
       },
     }
