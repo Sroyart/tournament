@@ -34,6 +34,7 @@ export const register = async (
     lastName: string
     email: string
     password: string
+    confirmPassword: string
   } | null,
   formData: FormData,
 ) => {
@@ -43,10 +44,11 @@ export const register = async (
 
   if (!success) {
     return {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
+      firstName: formData.get("firstName") as string,
+      lastName: formData.get("lastName") as string,
+      email: formData.get("email") as string,
+      password: formData.get("password") as string,
+      confirmPassword: "",
       errors: errorsArrayToObject(error.errors),
     }
   }
@@ -59,7 +61,7 @@ export const register = async (
   })
 
   if (registerRespond.errors) {
-    return registerRespond
+    return { ...registerRespond, confirmPassword: "" }
   }
 
   await signIn("credentials", {
@@ -70,5 +72,12 @@ export const register = async (
     redirectTo: "/",
   })
 
-  return { firstName, lastName, email, password, errors: null }
+  return {
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword: "",
+    errors: null,
+  }
 }

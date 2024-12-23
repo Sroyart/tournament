@@ -5,6 +5,7 @@ type Props = {
   name: string
   type: string
   label: string
+  defaultValue?: string
   errors?: string[]
 }
 
@@ -12,7 +13,13 @@ type DropdownProps = Props & {
   options: { value: string; label: string }[]
 }
 
-const FormField: React.FC<Props> = ({ name, type, label, errors }) => (
+const FormField: React.FC<Props> = ({
+  name,
+  type,
+  label,
+  errors,
+  defaultValue,
+}) => (
   <>
     <label
       htmlFor={`${name}_input`}
@@ -25,6 +32,7 @@ const FormField: React.FC<Props> = ({ name, type, label, errors }) => (
       name={name}
       id={`${name}_input`}
       type={type}
+      defaultValue={defaultValue}
     />
     <Alert errors={errors} />
   </>

@@ -30,6 +30,7 @@ const RegisterForm = () => {
     >
       {fields.map((field, key) => (
         <FormField
+          defaultValue={state?.[field.name]}
           key={key}
           name={field.name}
           type={field.type}
