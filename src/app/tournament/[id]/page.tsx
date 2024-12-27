@@ -2,6 +2,7 @@ import { auth } from "@/auth"
 import DeleteButton from "@/components/DeleteButton"
 import Switch from "@/components/Switch"
 import { tournamentById } from "@/lib/queries/tournament"
+import Link from "next/link"
 import { notFound } from "next/navigation"
 
 export default async function Page({
@@ -31,6 +32,7 @@ export default async function Page({
           <DeleteButton id={id} />
         </div>
       )}
+      <Link href={`${id}/join`}>Join</Link>
     </div>
   )
 }

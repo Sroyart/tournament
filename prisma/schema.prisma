@@ -16,7 +16,8 @@ datasource db {
 model Tournaments {
   id           String           @id @default(uuid())
   name         String
-  matches      Matches[] 
+  matches      Matches[]
+  teams        Teams[] 
   date         DateTime
   type         String
   user         User @relation(fields: [userId], references: [id])
@@ -40,18 +41,13 @@ model Matches {
   winner       String?
 }
 
-// model Teams {
-//   id           Int           @id @default(autoincrement())
-//   name         String
-//   players      Players[]
-//   tournament   Tournaments?   @relation(fields: [tournamentId], references: [id])
-//   tournamentId Int?
-//   team1        Matches[] @relation("team1")
-//   matches1Id   Int?  @unique
-//   team2        Matches[] @relation("team2")
-//   matches2Id   Int?  @unique
-//   win          Matches[] @relation("winner")
-// }
+ model Teams {
+   id           Int           @id @default(autoincrement())
+   owner        User          @relation(fields: [ownerId], references: [id])
+   ownerId      String
+   name         String
+   tournament   Tournaments[]
+ }
 
 // model Players {
 //   id           Int           @id @default(autoincrement())
@@ -71,6 +67,7 @@ model User {
   accounts      Account[]
   sessions      Session[]
   tournaments   Tournaments[]
+  teamsOwn         Teams[]
  
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
