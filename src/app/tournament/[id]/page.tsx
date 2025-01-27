@@ -18,7 +18,7 @@ export default async function Page({
   }
 
   return (
-    <div className="max-w-screen-xl mx-auto">
+    <div className="max-w-(--breakpoint-xl) mx-auto">
       <div className="flex justify-end">
         <VisibilityContent userId={tournament.userId}>
           {() => <Switch tournament={tournament} />}

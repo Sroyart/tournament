@@ -19,7 +19,7 @@ const Modal = () => {
     >
       <dialog
         open
-        className="relative bg-white dark:bg-black-500 p-6 rounded shadow-lg"
+        className="relative bg-white dark:bg-black-500 p-6 rounded-sm shadow-lg"
       >
         <span
           className="absolute top-2 right-2 text-grey-100 cursor-pointer"

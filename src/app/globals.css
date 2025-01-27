@@ -1,11 +1,86 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import 'tailwindcss';
 
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-*: initial;
+  --color-black-50: #f6f6f6;
+  --color-black-100: #e7e7e7;
+  --color-black-200: #d1d1d1;
+  --color-black-300: #b0b0b0;
+  --color-black-400: #888888;
+  --color-black-500: #6d6d6d;
+  --color-black-600: #5d5d5d;
+  --color-black-700: #4f4f4f;
+  --color-black-800: #454545;
+  --color-black-900: #3d3d3d;
+  --color-black-950: #000000;
+
+  --color-white: #ffffff;
+
+  --color-blue-50: #edf6ff;
+  --color-blue-100: #d8eaff;
+  --color-blue-200: #b9daff;
+  --color-blue-300: #89c4ff;
+  --color-blue-400: #51a3ff;
+  --color-blue-500: #297dff;
+  --color-blue-600: #125bfe;
+  --color-blue-700: #0b44ea;
+  --color-blue-800: #0f35b3;
+  --color-blue-900: #133595;
+  --color-blue-950: #11225a;
+
+  --color-grey-50: #f6f6f6;
+  --color-grey-100: #e7e7e7;
+  --color-grey-200: #d1d1d1;
+  --color-grey-300: #b0b0b0;
+  --color-grey-400: #858585;
+  --color-grey-500: #6d6d6d;
+  --color-grey-600: #5d5d5d;
+  --color-grey-700: #4f4f4f;
+  --color-grey-800: #454545;
+  --color-grey-900: #3d3d3d;
+  --color-grey-950: #262626;
+
+  --color-red-50: #fff0f0;
+  --color-red-100: #ffdddd;
+  --color-red-200: #ffc1c1;
+  --color-red-300: #ff9595;
+  --color-red-400: #ff5959;
+  --color-red-500: #ff2626;
+  --color-red-600: #fc0606;
+  --color-red-700: #db0000;
+  --color-red-800: #af0505;
+  --color-red-900: #900c0c;
+  --color-red-950: #500000;
+
+  --background-image-gradient-radial: radial-gradient(var(--tw-gradient-stops));
+  --background-image-gradient-conic: conic-gradient(
+    from 180deg at 50% 50%,
+    var(--tw-gradient-stops)
+  );
+}
+
+/*
+  The default border color has changed to `currentColor` in Tailwind CSS v4,
+  so we've added these compatibility styles to make sure everything still
+  looks the same as it did with Tailwind CSS v3.
+
+  If we ever want to remove these styles, we need to add an explicit border
+  color utility to any element that depends on these defaults.
+*/
+@layer base {
+  *,
+  ::after,
+  ::before,
+  ::backdrop,
+  ::file-selector-button {
+    border-color: var(--color-gray-200, currentColor);
   }
+}
+
+@utility text-balance {
+  text-wrap: balance;
 }
 
 @layer base {

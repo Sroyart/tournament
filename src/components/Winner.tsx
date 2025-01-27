@@ -13,7 +13,7 @@ const Winner: React.FC<{ match: any }> = ({ match }) => {
       <button
         id="dropdownDefaultButton"
         data-dropdown-toggle="dropdown"
-        className="text-white mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-0.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+        className="text-white mr-2 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-hidden focus:ring-blue-300 font-medium rounded-lg text-sm px-2 py-0.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
         type="button"
         onClick={() => {
           const dropdown = document.getElementById("dropdown")
@@ -56,7 +56,7 @@ const Winner: React.FC<{ match: any }> = ({ match }) => {
 
       <div
         id="dropdown"
-        className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700"
+        className="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow-sm w-44 dark:bg-gray-700"
       >
         <ul
           className="py-2 text-sm text-gray-700 dark:text-gray-200"
