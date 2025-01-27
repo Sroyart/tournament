@@ -1,10 +1,5 @@
 import React from "react"
 
-enum ColorEnum {
-  blue = "bg-blue-500",
-  red = "bg-red-500",
-}
-
 type ButtonSubmit = {
   type?: "submit"
   onClick?: never
@@ -29,7 +24,7 @@ const Button: React.FC<Props> = ({
   color = "blue" as "blue" | "red",
 }) => (
   <button
-    className={`${ColorEnum[color]} hover:bg-blue-600 my-4 active:bg-blue-700 text-white w-full py-2 px-2 rounded-md disabled:bg-blue-100 disabled:text-blue-400`}
+    className={`bg-${color}-500 hover:bg-${color}-600 cursor-pointer my-4 active:bg-${color}-900 text-white w-full py-2 px-2 rounded-md disabled:bg-blue-100 disabled:text-${color}-400`}
     aria-disabled={isPending}
     disabled={isPending}
     type={type}
