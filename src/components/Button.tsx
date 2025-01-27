@@ -16,7 +16,7 @@ type ButtonOnClickProps = {
 }
 
 type Props = {
-  isPending: boolean
+  isPending?: boolean
   buttonText: { pending: string; default: string }
   color?: "red"
 } & (ButtonSubmit | ButtonOnClickProps)
@@ -29,7 +29,7 @@ const Button: React.FC<Props> = ({
   color = "blue" as "blue" | "red",
 }) => (
   <button
-    className={`${ColorEnum[color]} hover:bg-blue-600 my-4 active:bg-blue-700 text-white w-full py-2 rounded-md disabled:bg-blue-100 disabled:text-blue-400`}
+    className={`${ColorEnum[color]} hover:bg-blue-600 my-4 active:bg-blue-700 text-white w-full py-2 px-2 rounded-md disabled:bg-blue-100 disabled:text-blue-400`}
     aria-disabled={isPending}
     disabled={isPending}
     type={type}

@@ -1,13 +1,33 @@
 import { auth } from "@/auth"
-import type { FC, PropsWithChildren } from "react"
+import type { FC, JSX } from "react"
 
-const VisibilityContent: FC<{ userId: string } & PropsWithChildren> = async ({
+type VisibilityContentProps = {
+  userId: string
+  children: (props: { text: string }) => JSX.Element
+  show?: true
+  text?: {
+    owner: string
+    invite: string
+  }
+}
+
+const VisibilityContent: FC<VisibilityContentProps> = async ({
   userId,
   children,
+  show = false,
+  text = { owner: "", invite: "" },
 }) => {
   const session = await auth()
 
-  return userId === session?.user?.id ? <>{children}</> : null
+  if (userId === session?.user?.id) {
+    return children({ text: text.owner })
+  }
+
+  if (show) {
+    return children({ text: text.invite })
+  }
+
+  return null
 }
 
 export default VisibilityContent

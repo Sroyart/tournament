@@ -21,18 +21,26 @@ export default async function Page({
     <div className="max-w-screen-xl mx-auto">
       <div className="flex justify-end">
         <VisibilityContent userId={tournament.userId}>
-          <Switch tournament={tournament} />
+          {() => <Switch tournament={tournament} />}
         </VisibilityContent>
       </div>
       <h1>{tournament.name}</h1>
       <p>{tournament.date.toLocaleDateString()}</p>
       <p>{tournament.type}</p>
       <VisibilityContent userId={tournament.userId}>
-        <div className="w-24">
-          <DeleteButton id={id} />
-        </div>
+        {() => (
+          <div className="w-24">
+            <DeleteButton id={id} />
+          </div>
+        )}
       </VisibilityContent>
-      <Link href={`${id}/join`}>Join</Link>
+      <VisibilityContent
+        userId={tournament.userId}
+        text={{ owner: "Add teams", invite: "Join" }}
+        show
+      >
+        {({ text }) => <Link href={`${id}/join`}>{text}</Link>}
+      </VisibilityContent>
     </div>
   )
 }
