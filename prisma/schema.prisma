@@ -47,6 +47,7 @@ model Matches {
    ownerId      String
    name         String
    tournament   Tournaments[]
+   isAccepted   Boolean
  }
 
 // model Players {

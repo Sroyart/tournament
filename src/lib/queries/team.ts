@@ -3,7 +3,7 @@ import { Prisma, type Teams, type Tournaments } from "@prisma/client"
 import prisma from "@/lib/db"
 import { tournamentById } from "@/lib/queries/tournament"
 
-type Team = Omit<Teams, "id" | "ownerId">
+type Team = Omit<Teams, "id" | "ownerId" | "isAccepted">
 
 export const newTeams = async (team: Team, tournamentId: string) => {
   const session = await auth()
@@ -15,18 +15,15 @@ export const newTeams = async (team: Team, tournamentId: string) => {
 
   validateTournamentId(userId)
 
-  const tournament = await validateTournament(tournamentId)
-
-  if ("error" in tournament) {
-    throw new Error(tournament.error)
-  }
+  const { error, tournament } = await validateTournament(tournamentId)
 
   try {
     return await prisma.teams.create({
       data: {
         ...team,
+        isAccepted: !error,
         ownerId: userId,
-        tournament: { connect: [{ ...tournament }] },
+        tournament: { connect: [{ id: tournament.id }] },
       },
     })
   } catch (e) {
@@ -41,26 +38,26 @@ const validateTournamentId = (tournamentId: string) => {
 }
 const validateTournament: (
   tournamentId: string,
-) => Promise<Tournaments | { error: string }> = async (
+) => Promise<{ tournament: Tournaments; error: string | null }> = async (
   tournamentId: string,
 ) => {
   const session = await auth()
   const tournament = await tournamentById(tournamentId)
 
   if (!tournament) {
-    return { error: `Tournament not found.` }
+    throw new Error(`Tournament not found.`)
   }
 
   if (tournament.userId !== session?.user?.id) {
-    return { error: `You are not the owner of this tournament.` }
+    return { tournament, error: `You are not the owner of this tournament.` }
   }
 
-  return tournament
+  return { tournament, error: null }
 }
 const prismaErrorHandling = (e: unknown) => {
   if (e instanceof Prisma.PrismaClientKnownRequestError) {
     throw new Error(e.message)
   }
 
-  throw new Error(`Failed to create team.`)
+  throw new Error(String(e))
 }
