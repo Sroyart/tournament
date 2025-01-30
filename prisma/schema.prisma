@@ -42,11 +42,14 @@ model Matches {
 }
 
  model Teams {
-   id           Int           @id @default(autoincrement())
-   owner        User          @relation(fields: [ownerId], references: [id])
+  id           Int           @id @default(autoincrement())
+  owner        User          @relation(fields: [ownerId], references: [id])
    ownerId      String
    name         String
    tournament   Tournaments[]
+   wins         Int         @default(0)
+   losses       Int         @default(0)
+   draws        Int         @default(0)
    isAccepted   Boolean
  }
 

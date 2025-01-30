@@ -5,6 +5,22 @@ import { tournamentById } from "@/lib/queries/tournament"
 
 type Team = Omit<Teams, "id" | "ownerId" | "isAccepted">
 
+export const teamsByTournamentId = async (tournamentId: string) => {
+  validateTournamentId(tournamentId)
+
+  const { tournament } = await validateTournament(tournamentId)
+
+  return await prisma.teams.findMany({
+    where: {
+      tournament: {
+        some: {
+          id: tournament.id,
+        },
+      },
+    },
+  })
+}
+
 export const newTeams = async (team: Team, tournamentId: string) => {
   const session = await auth()
   const userId = session?.user?.id

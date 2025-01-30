@@ -1,4 +1,5 @@
 import DeleteButton from "@/components/DeleteButton"
+import Ranking from "@/components/Ranking"
 import Switch from "@/components/Switch"
 import VisibilityContent from "@/components/VisibilityContent"
 import { tournamentById } from "@/lib/queries/tournament"
@@ -27,7 +28,7 @@ export default async function Page({
       <h1>{tournament.name}</h1>
       <p>{tournament.date.toLocaleDateString()}</p>
       <p>{tournament.type}</p>
-
+      <Ranking id={id} />
       <div className="absolute left-0 bottom-0 shadow-[0_3px_10px_rgb(0,0,0,0.2)] w-full">
         <div className=" flex justify-end gap-2 px-4 max-w-(--breakpoint-xl) mx-auto">
           <VisibilityContent
