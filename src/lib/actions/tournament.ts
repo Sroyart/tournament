@@ -1,7 +1,7 @@
 "use server"
 
 import { newTournament, updateTournament } from "@/lib/queries/tournament"
-import { changeWinner, newMatch, removeMatch } from "@/lib/script"
+import { removeMatch } from "@/lib/script"
 import errorsArrayToObject from "@/utils/errorsHandling"
 import { ownerCheck } from "@/utils/ownerCheck"
 import type { Tournaments } from "@prisma/client"
@@ -63,12 +63,4 @@ export const updateTournamentAction = async (tournament: Tournaments) => {
   return { error: [] }
 }
 
-export const postMatch = async (data: any) => await newMatch(data)
-
 export const deleteMatch = async (id: number) => await removeMatch(id)
-
-export const updateWinner = async (data: any) => {
-  await changeWinner({ winner: data.winner, id: data.id })
-
-  return true
-}

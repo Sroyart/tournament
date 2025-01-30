@@ -12,14 +12,6 @@ export const allTournaments = async () => {
   return tournaments
 }
 
-export const newMatch = async (matchDto: any) => {
-  const match = await prisma.matches.create({
-    data: matchDto,
-  })
-
-  return match
-}
-
 export const removeMatch = async (id: number) => {
   const match = await prisma.matches.delete({
     where: {
@@ -28,17 +20,6 @@ export const removeMatch = async (id: number) => {
   })
 
   return match
-}
-
-export const changeWinner = async (winnerDto: any) => {
-  const winner = await prisma.matches.update({
-    data: winnerDto,
-    where: {
-      id: winnerDto.id,
-    },
-  })
-
-  return winner
 }
 
 export async function getUser(email: string): Promise<User | null> {

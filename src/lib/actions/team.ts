@@ -30,7 +30,7 @@ export const postTeams = async (
   }
 
   const { name } = data
-  const teams = await newTeams({ name }, tournamentId)
+  const teams = await newTeams(name, tournamentId)
 
   return {
     ...teams,

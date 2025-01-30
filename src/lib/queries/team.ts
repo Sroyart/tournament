@@ -1,9 +1,7 @@
 import { auth } from "@/auth"
-import { Prisma, type Teams, type Tournaments } from "@prisma/client"
+import { Prisma, type Tournaments } from "@prisma/client"
 import prisma from "@/lib/db"
 import { tournamentById } from "@/lib/queries/tournament"
-
-type Team = Omit<Teams, "id" | "ownerId" | "isAccepted">
 
 export const teamsByTournamentId = async (tournamentId: string) => {
   validateTournamentId(tournamentId)
@@ -21,7 +19,7 @@ export const teamsByTournamentId = async (tournamentId: string) => {
   })
 }
 
-export const newTeams = async (team: Team, tournamentId: string) => {
+export const newTeams = async (name: string, tournamentId: string) => {
   const session = await auth()
   const userId = session?.user?.id
 
@@ -36,7 +34,7 @@ export const newTeams = async (team: Team, tournamentId: string) => {
   try {
     return await prisma.teams.create({
       data: {
-        ...team,
+        name,
         isAccepted: !error,
         ownerId: userId,
         tournament: { connect: [{ id: tournament.id }] },
